@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # DEPLOY STEP: zamenjaj domeno
-Sitemap: https://damir-lovrek.vercel.app/sitemap.xml
+Sitemap: https://gradbenistvo-lovrek.vercel.app/sitemap.xml

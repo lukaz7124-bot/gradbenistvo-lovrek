@@ -29,7 +29,7 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 grep -rn "DEPLOY STEP" .
 ```
 
-1. **Domena**: povsod je začasna `https://damir-lovrek.vercel.app` (canonical, og:*, JSON-LD, `sitemap.xml`, `robots.txt`).
+1. **Domena**: stran je živa na `https://gradbenistvo-lovrek.vercel.app` (Vercel, povezan z GitHubom – vsak push se objavi sam). Če bo lastna domena, jo zamenjaj (canonical, og:*, JSON-LD, `sitemap.xml`, `robots.txt`).
 2. **Delovni čas** Pon–Pet 8.00–16.00 je z moja-dejavnost.si (»po dogovoru«) — potrdi z Damirjem (`index.html` kontakt in noga, JSON-LD).
 3. **Besedilo »O nas«** (»Damir je na gradbišču osebno …«) in odgovori v Vprašanjih so splošni — naj jih Damir prebere.
 4. **Gostitelj** v politiki zasebnosti je Vercel — popravi, če bo drugje.
