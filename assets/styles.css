@@ -153,7 +153,9 @@ figure { margin: 0; }
 
 /* ---------- glava ---------- */
 .progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 120; pointer-events: none; }
-.progress i { display: block; height: 100%; background: var(--red); transform-origin: 0 50%; transform: scaleX(0); }
+.progress i { display: block; height: 100%; background: var(--red); transform-origin: 0 50%; transform: scaleX(0); will-change: transform; }
+/* Na telefonu ga ni: naslovna vrstica brskalnika se med drsenjem skriva in prikazuje, dolžina strani se spreminja in črta poskakuje. */
+@media (hover: none), (pointer: coarse) { .progress { display: none; } }
 
 .nav {
   position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--nav-h);
@@ -767,8 +769,10 @@ figure { margin: 0; }
 .js.rm .rv.is-in { opacity: 1; }
 
 /* ---------- parallax s CSS časovnico drsenja (brez JS; kjer ni podpore, ostane mirno) ---------- */
-@supports (animation-timeline: view()) {
-  .js:not(.rm) .progress i { animation: grow linear both; animation-timeline: scroll(root); }
+@supports (animation-timeline: scroll()) {
+  @media (hover: hover) and (pointer: fine) {
+    .js:not(.rm) .progress i { animation: grow linear both; animation-timeline: scroll(root); }
+  }
 }
 /* paralaksa samo na računalniku z miško – na telefonu ne dodaja ničesar, le obremeni izris */
 @supports (animation-timeline: view()) {

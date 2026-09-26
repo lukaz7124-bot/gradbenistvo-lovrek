@@ -67,7 +67,17 @@
      ======================================================= */
   var nav = $('#nav'), toTop = $('#to-top'), fab = $('#call-fab'), bar = $('.progress i');
   var cssProgress = !RM && w.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
-  var menuOpen = false, ticking = false, callVisible = false;
+  var menuOpen = false, ticking = false, callVisible = false, maxScroll = 0;
+
+  /* Črto napredka z JS premikamo samo na računalniku brez CSS časovnice drsenja (na telefonu je skrita).
+     Dolžino strani izmerimo le ob spremembi velikosti – branje scrollHeight ob vsakem okvirju sproži preračun postavitve. */
+  var jsProgress = !!bar && !cssProgress && mqFine.matches;
+  var measure = function () { maxScroll = Math.max(0, html.scrollHeight - w.innerHeight); };
+  if (jsProgress) {
+    measure();
+    w.addEventListener('load', measure);
+    if ('ResizeObserver' in w) new ResizeObserver(function () { measure(); onScroll(); }).observe(d.body);
+  }
 
   /* plavajoči gumb za klic se skrije, ko so na zaslonu kontakt, poziv ali noga (tam je klic že na voljo) */
   if (fab && 'IntersectionObserver' in w) {
@@ -87,14 +97,11 @@
     var past = y > w.innerHeight * 0.75;
     if (toTop) toTop.classList.toggle('is-on', past);
     if (fab) fab.classList.toggle('is-on', past && !callVisible);
-    if (bar && !cssProgress) {
-      var max = html.scrollHeight - w.innerHeight;
-      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
-    }
+    if (jsProgress) bar.style.transform = 'scaleX(' + (maxScroll > 0 ? Math.min(1, y / maxScroll) : 0) + ')';
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   w.addEventListener('scroll', onScroll, { passive: true });
-  w.addEventListener('resize', onScroll, { passive: true });
+  w.addEventListener('resize', function () { if (jsProgress) measure(); onScroll(); }, { passive: true });
   frame();
 
   if (toTop) toTop.addEventListener('click', function () {
