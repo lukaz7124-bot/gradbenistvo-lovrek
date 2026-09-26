@@ -246,7 +246,7 @@ figure { margin: 0; }
 }
 .hero__grain { /* plastnice čez temni del */
   position: absolute; inset: 0; z-index: -2; opacity: .06;
-  background: url("img/plastnice.svg") left 20% center / 1400px auto no-repeat;
+  background: url("img/plastnice.webp") left 20% center / 1400px auto no-repeat;
 }
 .hero__copy { position: relative; max-width: 700px; }
 .hero .h1 { margin-bottom: 26px; }
@@ -314,7 +314,10 @@ figure { margin: 0; }
 .sec--dark { background: var(--ink); color: #fff; }
 .sec--dark::before {
   content: ""; position: absolute; inset: 0; z-index: -1; opacity: .055; pointer-events: none;
-  background: url("img/plastnice.svg") center / cover no-repeat;
+  /* bitna slika fiksne velikosti na vrhu in dnu: SVG, raztegnjen čez 4000 px visok razdelek, je telefonu zamrznil izris */
+  background:
+    url("img/plastnice.webp") center top / max(1600px, 100%) auto no-repeat,
+    url("img/plastnice.webp") center bottom / max(1600px, 100%) auto no-repeat;
 }
 .bg-word {
   position: absolute; top: clamp(40px, 6vw, 70px); right: -1vw; z-index: -1; pointer-events: none; user-select: none;
@@ -572,7 +575,7 @@ figure { margin: 0; }
 .map { margin-top: 28px; position: relative; aspect-ratio: 16 / 10; border-radius: var(--r); overflow: hidden; background: var(--ink-3); border: 1px solid var(--line-d); }
 .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(.2) contrast(1.05); }
 .map__cover { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; background: var(--ink-2); isolation: isolate; }
-.map__cover::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .12; background: url("img/plastnice.svg") center / 900px auto no-repeat; }
+.map__cover::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .12; background: url("img/plastnice.webp") center / 900px auto no-repeat; }
 .map__cover > div { display: grid; gap: 14px; justify-items: center; max-width: 360px; }
 .map__cover .pin { width: 38px; height: 38px; color: var(--red-hi); }
 .map__cover p { margin: 0; color: var(--muted-d); font-size: .92rem; }
@@ -690,7 +693,7 @@ figure { margin: 0; }
 
 /* ---------- podstrani (zasebnost, 404) ---------- */
 .page-hero { background: var(--ink); color: #fff; padding: calc(var(--nav-h) + 70px) 0 70px; position: relative; overflow: hidden; isolation: isolate; }
-.page-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .06; background: url("img/plastnice.svg") center / cover no-repeat; }
+.page-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .06; background: url("img/plastnice.webp") center / cover no-repeat; }
 .crumbs { font: 500 .74rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted-d); margin-bottom: 22px; display: flex; gap: 10px; }
 .crumbs a { color: #fff; }
 .legal { max-width: 820px; }
@@ -716,7 +719,7 @@ figure { margin: 0; }
   transition: transform 700ms var(--ease-in-out);
 }
 .intro body { overflow: hidden; }
-.pl::before { content: ""; position: absolute; inset: 0; opacity: .07; background: url("img/plastnice.svg") center / cover no-repeat; }
+.pl::before { content: ""; position: absolute; inset: 0; opacity: .07; background: url("img/plastnice.webp") center / cover no-repeat; }
 .pl__box { position: relative; display: grid; justify-items: center; gap: 22px; padding: 0 24px; }
 .pl__mark { width: min(360px, 72vw); color: var(--red-hi); --sw: 3; --hatch: 1.7; }
 .pl__mark path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: pl-draw 460ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 0.85ms + 150ms); }
@@ -765,9 +768,14 @@ figure { margin: 0; }
 
 /* ---------- parallax s CSS časovnico drsenja (brez JS; kjer ni podpore, ostane mirno) ---------- */
 @supports (animation-timeline: view()) {
-  .js:not(.rm) .bg-word { animation: drift linear both; animation-timeline: view(); animation-range: cover; }
-  .js:not(.rm) .band__img { animation: band-par linear both; animation-timeline: view(); animation-range: cover; }
   .js:not(.rm) .progress i { animation: grow linear both; animation-timeline: scroll(root); }
+}
+/* paralaksa samo na računalniku z miško – na telefonu ne dodaja ničesar, le obremeni izris */
+@supports (animation-timeline: view()) {
+  @media (hover: hover) and (pointer: fine) {
+    .js:not(.rm) .bg-word { animation: drift linear both; animation-timeline: view(); animation-range: cover; }
+    .js:not(.rm) .band__img { animation: band-par linear both; animation-timeline: view(); animation-range: cover; }
+  }
 }
 @keyframes drift { from { transform: translateX(6%); } to { transform: translateX(-10%); } }
 @keyframes band-par { from { transform: translateY(-8%); } to { transform: translateY(8%); } }
@@ -842,6 +850,7 @@ figure { margin: 0; }
   .filters::-webkit-scrollbar { display: none; }
   .chip { flex: none; }
   .footer { padding-bottom: 84px; }
+  .sec--dark::before { background-size: max(1000px, 100%) auto, max(1000px, 100%) auto; }
   .svc-grid { grid-template-columns: 1fr; }
   .svc-extra { grid-template-columns: 1fr; }
   .svc-extra li + li { border-left: 0; border-top: 1px solid var(--line-d); }

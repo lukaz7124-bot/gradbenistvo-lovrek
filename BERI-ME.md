@@ -10,7 +10,7 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 | `zasebnost.html` | Politika zasebnosti in piškotkov (`#piskotki`) |
 | `404.html` | Stran za neobstoječe naslove |
 | `assets/styles.css`, `assets/main.js` | Videz in delovanje |
-| `assets/img/` | Pretvorjene fotografije (WebP), `plastnice.svg` (tekstura) |
+| `assets/img/` | Pretvorjene fotografije (WebP), `plastnice.webp` (tekstura plastnic – namenoma bitna slika fiksne velikosti, ne SVG: raztegnjen SVG je telefonu zamrznil drsenje) |
 | `assets/img/src/` | Izvirne fotografije s Facebooka — **niso za objavo** (v `.gitignore`) |
 | `assets/og-image.jpg` | Slika za deljenje na Facebooku (1200 × 630) |
 
