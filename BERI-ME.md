@@ -13,6 +13,8 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 | `assets/img/` | Pretvorjene fotografije (WebP), `plastnice.webp` (tekstura plastnic – namenoma bitna slika fiksne velikosti, ne SVG: raztegnjen SVG je telefonu zamrznil drsenje) |
 | `assets/img/src/` | Izvirne fotografije s Facebooka — **niso za objavo** (v `.gitignore`) |
 | `assets/og-image.jpg` | Slika za deljenje na Facebooku (1200 × 630) |
+| `assets/logo/` | Damirjev logotip, vektoriziran: `lovrek-logo.svg` (izvirne barve), `lovrek-logo-temno.svg` (za temno podlago), `lovrek-logo.png` (1200 px, prosojno) |
+| `favicon-32.png`, `favicon-192.png`, `apple-touch-icon.png` | Ikone strani (bager na beli podlagi) |
 
 ## Preverjeni podatki (26. 9. 2026)
 
@@ -21,7 +23,8 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 - Matična št.: 8670951000 · ID za DDV: SI25137247 · vpis 1. 7. 2020 (bizi.si)
 - Google: 5,0 ★ (1 mnenje, Anda Marinović, brez besedila) · Facebook: 1,5 tis. sledilcev
 - Storitve iz opisa na Facebooku: izkopi z gradbeno mehanizacijo, rušitvena dela, prevozi in dobava materiala, škarpe, temeljne plošče, drenaže, robniki in tlakovanje. Čistilne naprave, kanalizacija in asfalt so razvidni iz fotografij.
-- Stroji na fotografijah: JCB Fastrac, kolesni bager Wacker Neuson, bager Kobelco, mini bager.
+- Vozni park (Damir, 29. 9. 2026): traktor John Deere 7430 Premium (JCB Fastrac nimajo več – na fotografiji voznega parka je še, zato ga opisi ne omenjajo), kolesni bager Wacker Neuson, bager Kobelco, mini bager.
+- Dodatni storitvi (Damir, 29. 9. 2026): kiper prevozi in zimska služba (pluženje snega, posipanje).
 
 ## DEPLOY STEP — pred objavo
 
@@ -37,7 +40,8 @@ grep -rn "DEPLOY STEP" .
 
 ## Kako deluje
 
-- **Uvod**: bager se izriše potezo za potezo, zajame zemljo, zavesa se dvigne. Enkrat na sejo (`sessionStorage` `lv-uvod`), pri zmanjšanem gibanju ga ni, brez JS ga ni. Klik, tipka ali kolešček ga preskočijo. `?gibanje=1` v naslovu ga vsili ob vsakem nalaganju (za preverjanje).
+- **Logotip**: Damirjev logotip (oranžni bager + LOVREK) je vektoriziran in vgrajen v vsako stran kot `<defs>` s skupinami `#lv-exc` (bager), `#lv-word` (LOVREK), `#lv-sub` (podnapis). Barve se nastavijo s spremenljivkami `--lv-ink`, `--lv-bk`, `--lv-dk` … – na temni podlagi (glava, noga) sta napis in žlica svetla.
+- **Uvod**: na svetli podlagi se dvigneta telo in kabina, roka bagra se dvigne v položaj, žlica zajame zemljo (padejo grude), dvignejo se črke LOVREK in podnapis, nato se zavesa dvigne. Vse v barvah logotipa. Enkrat na sejo (`sessionStorage` `lv-uvod`), pri zmanjšanem gibanju ga ni, brez JS ga ni. Klik, tipka ali kolešček ga preskočijo. `?gibanje=1` v naslovu ga vsili ob vsakem nalaganju (za preverjanje).
 - **Povpraševanje**: gumb »Pošlji prek Gmaila« na računalniku odpre Gmailovo okno za pisanje s prejemnikom, zadevo in vsemi vpisanimi podatki; na telefonu (dotik) odpre e-poštno aplikacijo (`mailto:`), ker spletni Gmail na telefonu izgubi izpolnjena polja. Podatki ne gredo na noben strežnik.
 - **Piškotki**: brez soglasja samo nujna shramba (`lv-piskotki`, `lv-uvod`). Google zemljevid se naloži le s soglasjem »Zunanje vsebine« ali ob kliku »Prikaži zemljevid«.
 - **Galerija**: 34 fotografij, filtri po vrsti dela (izkopi, škarpe, temelji in beton, drenaže in kanalizacija, tlakovanje, asfalt, mehanizacija). Pri »Vse« je najprej 12 fotografij, gumb pokaže vse. Pod galerijo povezava »Več slik na Facebooku«.

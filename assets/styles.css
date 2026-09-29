@@ -34,6 +34,10 @@
   --gut: clamp(20px, 4.2vw, 44px);
   --nav-h: 78px;
   --r: 4px;
+
+  /* barve Damirjevega logotipa */
+  --logo: #F4962E;
+  --logo-lo: #F9AA4C;
 }
 
 /* ---------- osnova ---------- */
@@ -140,15 +144,13 @@ figure { margin: 0; }
 
 .linkbtn { background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; font: inherit; color: inherit; }
 
-/* ---------- logotip (risan bager) ---------- */
-.lv-mark {
-  fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round;
-  stroke-width: var(--sw, 3); overflow: visible;
-}
+/* ---------- logotip (Damirjev bager, vektoriziran) ----------
+   Barve delov so v --lv-*: na temni podlagi napis in žlica postaneta svetla, okvir kabine malo svetlejši. */
+.on-dark-logo, .brand, .f-logo, .lg-404 { --lv-ink: #F4F2EE; --lv-bk: #E9E6E0; --lv-dk: #5E5E5E; }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
-.brand .lv-mark { width: 66px; height: auto; color: var(--red-hi); --sw: 5.4; --hatch: 0; --det: 0; }
+.brand__mark { width: 58px; height: 54px; flex: none; overflow: visible; }
 .brand__txt { display: grid; line-height: 1; }
-.brand__txt b { font: 400 1.72rem/.9 var(--f-disp); letter-spacing: .09em; text-transform: uppercase; }
+.brand__word { display: block; width: 107px; height: 21.5px; }
 .brand__txt small { font: 500 .6rem/1.2 var(--f-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--muted-d); margin-top: 5px; }
 
 /* ---------- glava ---------- */
@@ -394,13 +396,15 @@ figure { margin: 0; }
   .svc:hover .svc__more svg { transform: translateX(4px); }
 }
 
-.svc-extra { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line-d); border-radius: var(--r); background: rgba(20, 20, 22, .7); position: relative; z-index: 1; }
-.svc-extra li { display: flex; gap: 14px; align-items: flex-start; padding: 22px; }
-.svc-extra li + li { border-left: 1px solid var(--line-d); }
+.svc-extra {
+  margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-d);
+  border: 1px solid var(--line-d); border-radius: var(--r); overflow: hidden; position: relative; z-index: 1;
+}
+.svc-extra li { display: flex; gap: 14px; align-items: flex-start; padding: 22px; background: #121214; }
 .svc-extra svg { width: 30px; height: 30px; color: var(--red-hi); flex: none; margin-top: 2px; }
 .svc-extra b { display: block; font-weight: 800; margin-bottom: 3px; }
 .svc-extra span { color: var(--muted-d); font-size: .9rem; line-height: 1.45; display: block; }
-.svc-extra__h { grid-column: 1 / -1; padding: 14px 22px; border-bottom: 1px solid var(--line-d); font: 500 .72rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted-d); }
+.svc-extra__h { grid-column: 1 / -1; padding: 14px 22px; font: 500 .72rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted-d); }
 
 /* ---------- panoramski trak s fotografijo ---------- */
 .band { position: relative; min-height: clamp(420px, 62vh, 640px); display: flex; align-items: flex-end; color: #fff; overflow: hidden; isolation: isolate; background: var(--ink); }
@@ -628,7 +632,10 @@ figure { margin: 0; }
 /* ---------- noga ---------- */
 .footer { background: var(--ink); color: #fff; }
 .footer__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding: 76px 0 54px; }
-.footer__brand p { color: var(--muted-d); margin: 22px 0 22px; max-width: 34ch; }
+.footer__brand p { color: var(--muted-d); margin: 18px 0 22px; max-width: 34ch; }
+.f-logo { display: inline-block; }
+.f-logo svg { display: block; width: min(240px, 66vw); height: auto; }
+.lg-404 { width: min(340px, 74vw); height: auto; }
 .footer h4 { font: 500 .72rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted-d); margin-bottom: 20px; }
 .footer li { margin-bottom: 11px; }
 .footer li a, .footer li button { color: #E4E4E7; text-decoration: none; background: none; border: 0; padding: 0; font: inherit; text-align: left; }
@@ -713,40 +720,42 @@ figure { margin: 0; }
 .tbl-wrap { overflow-x: auto; }
 
 /* =========================================================
-   VSTOPNA ANIMACIJA — bager se izriše, zakoplje, zavesa se dvigne
+   VSTOPNA ANIMACIJA — Damirjev logotip na svetli podlagi (njegove barve):
+   telo in kabina se dvigneta, roka se dvigne v položaj, žlica zajame
+   zemljo, črke LOVREK se dvignejo ena za drugo, nato se zavesa dvigne.
+   Vrtišča (transform-origin) nastavi main.js iz getBBox, ker so v
+   koordinatah izvirnega logotipa.
    ========================================================= */
 .pl { display: none; }
 .intro .pl {
-  display: grid; place-items: center; position: fixed; inset: 0; z-index: 150; background: var(--ink); color: #fff;
+  display: grid; place-items: center; position: fixed; inset: 0; z-index: 150; background: var(--paper); color: var(--ink);
   transition: transform 700ms var(--ease-in-out);
 }
 .intro body { overflow: hidden; }
-.pl::before { content: ""; position: absolute; inset: 0; opacity: .07; background: url("img/plastnice.webp") center / cover no-repeat; }
-.pl__box { position: relative; display: grid; justify-items: center; gap: 22px; padding: 0 24px; }
-.pl__mark { width: min(360px, 72vw); color: var(--red-hi); --sw: 3; --hatch: 1.7; }
-.pl__mark path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: pl-draw 460ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 0.85ms + 150ms); }
-.pl__mark .boom, .pl__mark .arm { transform-box: view-box; transition: transform 700ms var(--ease-in-out); }
-.pl__mark .boom { transform-origin: 93px 69px; }
-.pl__mark .arm { transform-origin: 47.5px 24px; }
-.pl.dig .pl__mark .boom { transform: rotate(-5deg); }
-.pl.dig .pl__mark .arm { transform: rotate(13deg); }
-.pl__word { display: grid; justify-items: center; gap: 10px; }
-.pl__word b {
-  font: 400 clamp(3.2rem, 11vw, 5.6rem)/.9 var(--f-disp); letter-spacing: .14em; text-transform: uppercase; margin-right: -.14em;
-  clip-path: inset(0 0 100% 0); transform: translateY(18px);
-  transition: clip-path 700ms var(--ease-out), transform 700ms var(--ease-out);
-}
-.pl__word small {
-  font: 500 .72rem/1.2 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--muted-d);
-  opacity: 0; transition: opacity 500ms ease 200ms;
-}
-.pl.word .pl__word b { clip-path: inset(0 0 0 0); transform: none; }
-.pl.word .pl__word small { opacity: 1; }
-.pl__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, .08); }
-.pl__bar i { display: block; height: 100%; background: var(--red); transform-origin: 0 50%; transform: scaleX(0); animation: pl-bar 2300ms linear forwards; }
-.pl__meta { position: absolute; left: var(--gut); right: var(--gut); bottom: 22px; display: flex; justify-content: space-between; font: 500 .68rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .5); }
+.pl::before { content: ""; position: absolute; inset: 0; opacity: .06; filter: invert(1); background: url("img/plastnice.webp") center / cover no-repeat; }
+.pl__box { position: relative; padding: 0 24px; }
+.pl__logo { display: block; width: min(560px, 84vw); height: auto; overflow: visible; }
+
+.pl__logo .lv-body, .pl__logo .lv-cab { opacity: 0; transform: translateY(26px); transition: opacity 450ms var(--ease-out), transform 650ms var(--ease-out); }
+.pl__logo .lv-cab { transition-delay: 70ms; }
+.pl__logo .lv-boom { opacity: 0; transform: rotate(-14deg); transition: opacity 300ms ease 150ms, transform 950ms var(--ease-in-out) 150ms; }
+.pl__logo .lv-arm { transform: rotate(20deg); transition: transform 950ms var(--ease-in-out) 250ms; }
+.pl__logo .lv-bucket { transform: rotate(38deg); transition: transform 850ms var(--ease-in-out) 420ms; }
+.pl__logo .lv-l { opacity: 0; transform: translateY(46px); transition: opacity 450ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: calc(760ms + var(--i, 0) * 60ms); }
+.pl__logo .lv-s { opacity: 0; transform: translateY(14px); transition: opacity 500ms var(--ease-out), transform 600ms var(--ease-out); transition-delay: calc(1120ms + var(--i, 0) * 90ms); }
+.pl.go .pl__logo .lv-body, .pl.go .pl__logo .lv-cab, .pl.go .pl__logo .lv-boom, .pl.go .pl__logo .lv-arm,
+.pl.go .pl__logo .lv-bucket, .pl.go .pl__logo .lv-l, .pl.go .pl__logo .lv-s { opacity: 1; transform: none; }
+/* zajem: žlica se zasuka in vrne, iz nje padejo grude zemlje (padanje pospešuje kot pri težnosti) */
+.pl.dig .pl__logo .lv-bucket { animation: lv-scoop 700ms var(--ease-in-out); }
+.pl__logo .lv-crumbs circle { fill: #6E5237; opacity: 0; }
+.pl.dig .pl__logo .lv-crumbs circle { animation: lv-crumb 700ms cubic-bezier(0.55, 0, 1, 0.45) both; animation-delay: calc(260ms + var(--i, 0) * 70ms); }
+@keyframes lv-scoop { 50% { transform: rotate(-16deg); } }
+@keyframes lv-crumb { 0% { opacity: 0; transform: translateY(0); } 12% { opacity: 1; } 100% { opacity: 0; transform: translateY(54px); } }
+
+.pl__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(12, 12, 13, .08); }
+.pl__bar i { display: block; height: 100%; background: var(--logo); transform-origin: 0 50%; transform: scaleX(0); animation: pl-bar 2300ms linear forwards; }
+.pl__meta { position: absolute; left: var(--gut); right: var(--gut); bottom: 22px; display: flex; justify-content: space-between; font: 500 .68rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: rgba(12, 12, 13, .55); }
 .pl.out { transform: translateY(-100%); }
-@keyframes pl-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
 @keyframes pl-bar { to { transform: scaleX(1); } }
 
 /* ---------- vstop naslovnice ---------- */
@@ -792,8 +801,6 @@ figure { margin: 0; }
   .nav__links a { padding: 10px 9px; font-size: .9rem; }
   .nav__right .btn { display: none; }
   .svc-extra { grid-template-columns: repeat(2, 1fr); }
-  .svc-extra li:nth-child(4) { border-left: 0; }
-  .svc-extra li:nth-child(n + 4) { border-top: 1px solid var(--line-d); }
   .footer__top { grid-template-columns: 1fr 1fr 1fr; }
   .footer__brand { grid-column: 1 / -1; }
 }
@@ -802,8 +809,8 @@ figure { margin: 0; }
   .nav__links { display: none; }
   .nav__right { margin-left: auto; }
   .burger { display: block; }
-  .brand .lv-mark { width: 58px; }
-  .brand__txt b { font-size: 1.5rem; }
+  .brand__mark { width: 52px; height: 48px; }
+  .brand__word { width: 97px; height: 19.5px; }
   .hero__media { width: 100%; }
   .hero__media img { object-position: 60% 40%; }
   .hero__media::after {
@@ -857,7 +864,6 @@ figure { margin: 0; }
   .sec--dark::before { background-size: max(1000px, 100%) auto, max(1000px, 100%) auto; }
   .svc-grid { grid-template-columns: 1fr; }
   .svc-extra { grid-template-columns: 1fr; }
-  .svc-extra li + li { border-left: 0; border-top: 1px solid var(--line-d); }
   .stats { grid-template-columns: repeat(3, 1fr); }
   .stat + .stat { padding-left: 12px; }
   .stat > span { font-size: .8rem; }
@@ -887,12 +893,12 @@ figure { margin: 0; }
   .lb__prev { left: auto; right: 78px; }
   .lb__cap { right: 150px; }
   .brand__txt small { display: none; }
-  .brand__txt b { font-size: 1.6rem; }
+  .brand__word { width: 107px; height: 21.5px; }
 }
 @media (max-width: 380px) {
   .nav .wrap { gap: 12px; }
-  .brand .lv-mark { width: 50px; }
-  .brand__txt b { font-size: 1.35rem; }
+  .brand__mark { width: 45px; height: 42px; }
+  .brand__word { width: 87px; height: 17.5px; }
   .fb { width: 40px; height: 40px; }
   .burger { width: 42px; height: 42px; }
   .burger span { left: 10px; right: 10px; }

@@ -22,7 +22,7 @@
   var mqFine = w.matchMedia('(hover: hover) and (pointer: fine)');
 
   /* =======================================================
-     1. Uvod: bager se izriše (CSS), zajame zemljo, zavesa se dvigne
+     1. Uvod: Damirjev logotip – bager dvigne roko, zajame zemljo, izpiše se LOVREK, zavesa se dvigne
      ======================================================= */
   var pl = $('#pl'), heroStarted = false;
   function startHero() {
@@ -32,8 +32,36 @@
   }
 
   if (pl && html.classList.contains('intro')) {
-    var plMark = $('#pl-mark'), sym = $('#lv-mark');
-    if (plMark && sym) plMark.innerHTML = sym.innerHTML; /* prave poti (ne <use>), da jih CSS lahko animira */
+    /* logotip vstavimo kot prave elemente (ne <use>), da CSS animira posamezne dele */
+    var plLogo = $('#pl-logo'), NS = 'http://www.w3.org/2000/svg';
+    if (plLogo) {
+      ['lv-exc', 'lv-word', 'lv-sub'].forEach(function (id) {
+        var src = d.getElementById(id);
+        if (!src) return;
+        var c = src.cloneNode(true);
+        c.removeAttribute('id');
+        c.setAttribute('class', id);
+        plLogo.appendChild(c);
+      });
+      /* grude zemlje, ki ob zajemu padejo s konice žlice */
+      var crumbs = d.createElementNS(NS, 'g');
+      crumbs.setAttribute('class', 'lv-crumbs');
+      [[236, 552, 4.6], [252, 548, 3.2], [224, 556, 3.8], [262, 551, 2.6]].forEach(function (q, i) {
+        var ci = d.createElementNS(NS, 'circle');
+        ci.setAttribute('cx', q[0]); ci.setAttribute('cy', q[1]); ci.setAttribute('r', q[2]);
+        ci.style.setProperty('--i', i);
+        crumbs.appendChild(ci);
+      });
+      plLogo.appendChild(crumbs);
+      /* vrtišča delov v koordinatah izvirnega logotipa -> transform-origin glede na lastni okvir (fill-box) */
+      [['.lv-boom', 478, 340], ['.lv-arm', 182, 172], ['.lv-bucket', 208, 452]].forEach(function (q) {
+        var el = $(q[0], plLogo);
+        if (!el || !el.getBBox) return;
+        var b = el.getBBox();
+        el.style.transformBox = 'fill-box';
+        el.style.transformOrigin = (q[1] - b.x) + 'px ' + (q[2] - b.y) + 'px';
+      });
+    }
     var timers = [], done = false, SKIP = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
     var later = function (fn, ms) { timers.push(setTimeout(fn, ms)); };
     var skip = function () { finish(true); };
@@ -43,7 +71,7 @@
       timers.forEach(clearTimeout);
       SKIP.forEach(function (t) { w.removeEventListener(t, skip, true); });
       try { sessionStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
-      pl.classList.add('word', 'out');
+      pl.classList.add('go', 'out');
       setTimeout(startHero, fast ? 0 : 140);
       setTimeout(function () {
         html.classList.remove('intro');
@@ -51,8 +79,9 @@
         showCookieBanner(500);
       }, 760);
     };
-    later(function () { pl.classList.add('word'); }, 1150);
-    later(function () { pl.classList.add('dig'); }, 1450);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { pl.classList.add('go'); }); });
+    later(function () { pl.classList.add('go'); }, 120); /* če okvirji zamujajo */
+    later(function () { pl.classList.add('dig'); }, 1380);
     later(function () { finish(false); }, 2450);
     SKIP.forEach(function (t) { w.addEventListener(t, skip, { passive: true, capture: true }); });
   } else {
