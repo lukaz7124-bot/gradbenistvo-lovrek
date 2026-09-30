@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# DEPLOY STEP: zamenjaj domeno
-Sitemap: https://gradbenistvo-lovrek.vercel.app/sitemap.xml
+Sitemap: https://www.gradbenopodjetje-lovrek.si/sitemap.xml

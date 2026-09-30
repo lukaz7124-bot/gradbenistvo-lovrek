@@ -32,11 +32,11 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 grep -rn "DEPLOY STEP" .
 ```
 
-1. **Domena**: stran je živa na `https://gradbenistvo-lovrek.vercel.app` (Vercel, povezan z GitHubom – vsak push se objavi sam). Če bo lastna domena, jo zamenjaj (canonical, og:*, JSON-LD, `sitemap.xml`, `robots.txt`).
+1. **Domena** (urejeno 30. 9. 2026): stran je živa na `https://www.gradbenopodjetje-lovrek.si` (Vercel, povezan z GitHubom – vsak push se objavi sam; `gradbenopodjetje-lovrek.si` preusmeri na `www`). Domena je pri Domenci, DNS strežnika sta `ns1/ns2.vercel-dns.com`, zapise (tudi TXT `google-site-verification` za Search Console – ne briši) ureja Vercel. Canonical, og:*, JSON-LD, `sitemap.xml` in `robots.txt` kažejo na to domeno.
 2. **Delovni čas** Pon–Pet 8.00–16.00 je z moja-dejavnost.si (»po dogovoru«) — potrdi z Damirjem (`index.html` kontakt in noga, JSON-LD).
 3. **Besedilo »O nas«** (»Damir je na gradbišču osebno …«) in odgovori v Vprašanjih so splošni — naj jih Damir prebere.
 4. **Gostitelj** v politiki zasebnosti je Vercel — popravi, če bo drugje.
-5. Na Google profil podjetja dodaj naslov spletne strani (»Dodaj spletno mesto« je prazno).
+5. Na Google profil podjetja dodaj naslov spletne strani `https://www.gradbenopodjetje-lovrek.si` (»Dodaj spletno mesto« je prazno).
 
 ## Kako deluje
 
