@@ -14,7 +14,7 @@ Statična stran (HTML/CSS/JS, brez knjižnic). Izdelano 26. 9. 2026.
 | `assets/img/src/` | Izvirne fotografije s Facebooka — **niso za objavo** (v `.gitignore`) |
 | `assets/og-image.jpg` | Slika za deljenje na Facebooku (1200 × 630) |
 | `assets/logo/` | Damirjev logotip, vektoriziran: `lovrek-logo.svg` (izvirne barve), `lovrek-logo-temno.svg` (za temno podlago), `lovrek-logo.png` (1200 px, prosojno) |
-| `favicon-32.png`, `favicon-192.png`, `apple-touch-icon.png` | Ikone strani (bager na beli podlagi) |
+| `favicon.ico` (16/32/48), `favicon-48/96/144/192.png`, `apple-touch-icon.png` | Ikone strani: oranžni bager z logotipa na beli podlagi. Velikosti so večkratniki 48 px, kot zahteva Google za ikono v rezultatih iskanja. |
 
 ## Preverjeni podatki (26. 9. 2026)
 
